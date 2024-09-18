@@ -1,0 +1,7 @@
+cd to car-inventory
+C:\Users\somna\Desktop\projects\car-inventory>  venv\Scripts\activate
+(venv) C:\Users\somna\Desktop\projects\car-inventory>   python backend\app.py
+
+API documentation (swagger):
+http://localhost:5000/apidocs
+

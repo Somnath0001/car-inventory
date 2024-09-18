@@ -1,0 +1,10 @@
+car-inventory/
+|---- backend/  # Python API
+|       |---- app.py
+|       |---- config.py
+|       |---- database.py
+|---- frontend/  # HTML, CSS, JS
+|       |---- index.html
+|       |---- styles.css
+|---- database/  # MySQL
+|       |---- car_inventory.sql

@@ -1,0 +1,102 @@
+<!-- frontend/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Inventory</title>
+    <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body>
+    <h1>Car Inventory</h1>
+    <div class="container">
+        <h2>Add Car</h2>
+        <form id="add-car-form">
+            <label for="company">Company:</label>
+            <input type="text" id="company" name="company"><br><br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+            <label for="make">Make:</label>
+            <input type="text" id="make" name="make"><br><br>
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model"><br><br>
+            <button id="add-car-btn">Add Car</button>
+        </form>
+        <h2>Search Car</h2>
+        <input type="text" id="search-input" placeholder="Search by name">
+        <button id="search-btn">Search</button>
+        <div id="car-list"></div>
+
+        <script>
+            const addCarForm = document.getElementById('add-car-form');
+            const addCarBtn = document.getElementById('add-car-btn');
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            const carList = document.getElementById('car-list');
+
+            addCarBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const company = document.getElementById('company').value;
+                const name = document.getElementById('name').value;
+                const make = document.getElementById('make').value;
+                const model = document.getElementById('model').value;
+
+                const response = await fetch('/cars', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ company, name, make, model })
+                });
+
+                const result = await response.json();
+                console.log(result);
+                location.reload();
+            });
+
+            searchBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const name = searchInput.value;
+                const response = await fetch(`/cars/search?name=${name}`);
+                const result = await response.json();
+                console.log(result);
+
+                carList.innerHTML = '';
+                result.forEach((car) => {
+                    const carHTML = `
+                        <div>
+                            <h3>${car.name}</h3>
+                            <p>Company: ${car.company}</p>
+                            <p>Make: ${car.make}</p>
+                            <p>Model: ${car.model}</p>
+                        </div>
+                    `;
+                    carList.insertAdjacentHTML('beforeend', carHTML);
+                });
+            });
+
+            async function loadCars() {
+                const response = await fetch('/cars');
+                const result = await response.json();
+                console.log(result);
+
+                carList.innerHTML = '';
+                result.forEach((car) => {
+                    const carHTML = `
+                        <div>
+                            <h3>${car.name}</h3>
+                            <p>Company: ${car.company}</p>
+                            <p>Make: ${car.make}</p>
+                            <p>Model: ${car.model}</p>
+                        </div>
+                    `;
+                    carList.insertAdjacentHTML('beforeend', carHTML);
+                });
+            }
+
+            //loadCars();
+        </script>
+    </div>
+</body>
+</html>

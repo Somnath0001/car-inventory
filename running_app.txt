@@ -5,3 +5,6 @@ C:\Users\somna\Desktop\projects\car-inventory>  venv\Scripts\activate
 API documentation (swagger):
 http://localhost:5000/apidocs
 
+We can run on wsgi server: waitress
+(venv) C:\Users\somna\Desktop\projects\car-inventory\backend>   waitress-serve --port=5000 app:app
+

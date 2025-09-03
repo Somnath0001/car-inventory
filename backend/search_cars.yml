@@ -1,0 +1,31 @@
+summary: Searches for cars by name.
+description: Retrieves a list of cars matching the specified name.
+parameters:
+  - in: query
+    name: name
+    schema:
+      type: string
+    required:
+      - name
+responses:
+  200:
+    description: List of cars
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          company:
+            type: string
+          name:
+            type: string
+          make:
+            type: string
+          model:
+            type: string
+  404:
+    description: No cars found
+  500:
+    description: Internal Server Error

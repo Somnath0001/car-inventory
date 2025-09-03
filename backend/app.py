@@ -1,5 +1,7 @@
 # backend/app.py
 
+# simple API documentation done
+
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from database import get_cars, add_car, search_car
 import os
